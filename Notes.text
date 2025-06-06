@@ -1,0 +1,125 @@
+1. Create your models
+  -- According to the class diagram
+
+The pLayer Model class has  a custom constructor -
+
+So the Child class Bot which is extending the Player class should also have to define the same custom constructor of the Parent class. (Rule)
+
+
+
+
+In the RowWinning Strategy ->
+
+We need to track counts for each row
+Each row can have multiple symbols (X, O, etc.)
+So: Map<Row_Number, Map<Symbol, Count>>
+
+
+Mental Model:
+Board:           Count Tracking:
+        | X | - | O |    Row 0: {X: 1, O: 1}
+        | O | O | - |    Row 1: {O: 2}
+        | - | X | X |    Row 2: {X: 2}
+
+After X moves to (0,1):
+        | X | X | O |    Row 0: {X: 2, O: 1}  ← X has 2, not 3 yet
+| O | O | - |    Row 1: {O: 2}
+        | - | X | X |    Row 2: {X: 2}
+
+After X moves to (2,0):
+
+
+public class RowWinningStrategy implements WinningStrategy{
+
+=========================================================================================================================
+
+We can use List<HashMap> as well instead of HashMap<HashMap>  --> we are using the HashMap<HashMap> here for easy iteration
+
+=========================================================================================================================
+
+
+Extract the row and symbol from the move made on the current cell
+
+If the row we are using for the first time to insert our symbol ->> First add a HashMap to that row
+
+Else --> If the row was previously used to insert symbols.
+        Then get the symbol that we are trying to insert in that row and add 1 to it. Since we are not adding that symbol for the first time in that row
+
+
+And if the symbol Count in the inside HashMap for any row is equals to the dimension of the matrix
+
+X -> 3   Dimension = 3 X 3
+3 == 3
+
+| X | X | O |    Row 0: {X: 2, O: 1}
+| O | O | - |    Row 1: {O: 2}
+| X | X | X |    Row 2: {X: 3}  ← X has 3 = dimension, X WINS!
+
+That means we got a winner for that row
+
+
+
+Make Move method -
+
+First Game Controller will call the makeMove() of the Game class
+
+In the Game class -
+makeMove(){
+    For this method we need input from the User/Player(If the Player is HUMAN) -> row and col to put the symbol
+    It is the responsibility of a Player to make a move
+
+    Before making a move we need to check which Player is having the current turn to make the move --> whose turn to make move now in the board
+
+    Player currentPlayer = players.get(nextPlayerIndex);
+
+    It is the Players responsibility to choose the move -
+
+        Two options -
+
+            1. Check which cells are currently empty so that the currentPlayer can make the move --> And based on the empty cell the player will choose the move
+            And once the Player choose the move - The game have to validate the move, if the current cell is empty and other criteria is matching for that move
+
+            The validation responsibility should be of Game class
+
+            Player class should gave the makeMove method
+
+            Player will choose the move that they want to make
+
+                Move move = currentPlayer.makeMove(board);
+
+            And Game will validate if the move that the player has chosen is valid or not
+}
+
+ValidateMove(Move move) --> In Game Class
+
+            1. Row and Col should be withing the limit/boundaries
+            2. Check if the cell is empty or not where the Player is trying to make a move
+
+
+
+Player class makeMove/chooseMove/selectMove method -->
+
+How Player should select a move?
+
+Take row, col in the input from the Player
+
+To take input we need to use the Scanner class and for that we have to everytime create a new Scanner object --> But that is not a good thing
+What we can do?
+
+We can create a class level attribute  --> private Scanner scanner
+and we will mention this scanner into the constructor of the Player class
+so whenever the Player constructor is called, the scanner object will be created
+
+
+We can also make the Scanner as static and make it class level --
+
+private static Scanner scanner = new Scanner(System.in)
+
+
+We have only created the makeMove method for the Player class
+And the Bot class is a child class of the Player class
+So when the makeMove method is called it will check for the object reference -> That this object is of type Human player or bot player
+If it is human player i.e the Parent class Player then it has a makeMove method and it will call that method to make the move
+
+But if the object is of type Bot and we call the makeMove() using the child object then it will go to the child object(Bot class) to find the method.
+But if the method is not overriden in the child class object then it will go to the Parent.
