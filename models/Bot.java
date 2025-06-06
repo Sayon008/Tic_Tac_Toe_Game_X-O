@@ -40,6 +40,11 @@ public class Bot extends Player{
     @Override
     public Move makeMove(Board board) {
         // Now how can we implement the logic for makeMove for Bot
-        return super.makeMove(board);
+        //The bot will make a move will be depended on the BotPlaying strategy
+        return botPlayingStrategy.makeMove(board);
+
+        // And the makeMove() for the BotPlayingStrategy decide where the bot will make its move
+
+
     }
 }

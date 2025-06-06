@@ -123,3 +123,11 @@ If it is human player i.e the Parent class Player then it has a makeMove method 
 
 But if the object is of type Bot and we call the makeMove() using the child object then it will go to the child object(Bot class) to find the method.
 But if the method is not overriden in the child class object then it will go to the Parent.
+
+
+Using BotPlayingStrategy the bot will make the move
+How Bot will decide a move -> It will decide a move based on the current state of the board
+
+Easy Bot Playing Strategy ->
+                            Keep on iterating the board, and whatever cell as the first empty cell present inside the board
+                            Bot will make its move there

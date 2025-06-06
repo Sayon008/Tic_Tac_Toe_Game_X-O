@@ -68,6 +68,16 @@ public class Client {
 //            Else make a move
             gameController.makeMove(game);
         }
+
+        gameController.printBoard(game);
+
+        // If someone wins the game the while loop will end and it will close the game
+        if(gameController.checkGameStatus(game).equals(GameStatus.ENDED)){
+            System.out.println(gameController.getWinner(game).getName() + " has won the game");
+        }else{
+            System.out.println("GAME DRAW");
+        }
+
     }
 }
 

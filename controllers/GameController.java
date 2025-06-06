@@ -51,4 +51,9 @@ public class GameController {
         return game.getGameStatus();
     }
 
+//    5.Get the winner
+    public Player getWinner(Game game){
+        return game.getWinner();
+    }
+
 }
