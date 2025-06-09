@@ -43,7 +43,7 @@ public class GameController {
 
 //    2. Undo Method
     public void Undo(Game game){
-
+        game.undoMove();
     }
 
 //    4.Check Game Status Method

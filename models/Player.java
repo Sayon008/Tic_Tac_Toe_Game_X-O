@@ -51,12 +51,12 @@ public class Player {
 
         //How Player should select a move
         // Take row, col in the input from the Player
-        System.out.println("Please enter the row number where you want to make the move");
+        System.out.println("Please enter the row number where you want to make the move :");
 //        Scanner scanner = new Scanner(System.in);
         int row = scanner.nextInt();
 
         // Now take input for the column
-        System.out.println("Please enter the colum number where you want to make the move");
+        System.out.println("Please enter the colum number where you want to make the move :");
         int col = scanner.nextInt();
 
         // Now we want to validate the row,col cell position is empty

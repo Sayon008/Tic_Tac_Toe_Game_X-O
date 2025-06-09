@@ -131,3 +131,14 @@ How Bot will decide a move -> It will decide a move based on the current state o
 Easy Bot Playing Strategy ->
                             Keep on iterating the board, and whatever cell as the first empty cell present inside the board
                             Bot will make its move there
+
+
+Undo Feature ->
+                1. Remove the last move from the list of moves and undo the move board as well.
+                We have to make the cell empty where the last move was made and remove the player from the cell
+
+                If we are removing a move from the board, we need to update the count in the HashMap as well for the row, col and the diagonal check as well
+
+
+                To handel the Undo operation in the Winning Strategies
+                We will initialize a abstract method in the WinningStrategies Interface and override that method for the different winning strategies and implement them accordingly

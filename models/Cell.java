@@ -5,6 +5,7 @@ public class Cell {
     private int col;
     private CellState cellState;
     private Player player;
+    private Symbol symbol;
 
     // By default CellState will be empty and Player will be null
 //    So this parameters are not needed in the constructor for now - CellState cellState, Player player
@@ -25,6 +26,14 @@ public class Cell {
 
     public int getCol() {
         return col;
+    }
+
+    public Symbol getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(Symbol symbol) {
+        this.symbol = symbol;
     }
 
     public void setCol(int col) {

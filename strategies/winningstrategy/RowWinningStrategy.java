@@ -4,6 +4,7 @@ import TicTacToe.models.Player;
 import TicTacToeNew.models.Board;
 import TicTacToeNew.models.Cell;
 import TicTacToeNew.models.Move;
+import TicTacToeNew.models.Symbol;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,10 +63,31 @@ public class RowWinningStrategy implements WinningStrategy{
         }
 
         // Step 5: Check if this symbol now has enough count to win
-        if(currRowMap.get(aChar).equals(board.getDimension())){
+        if(currRowMap.get(aChar) == board.getDimension()){
             return true;
         }
 
         return false;       // No winner yet
+    }
+
+    @Override
+    public void handleUndo(Board board, Move move) {
+        int row = move.getCell().getRow();
+        Character symbol = move.getCell().getPlayer().getSymbol().getaChar();
+
+        Map<Character,Integer> currRowMap = rowMap.get(row);
+
+        if(currRowMap != null && currRowMap.containsKey(symbol)){
+            int currentCount = currRowMap.get(symbol);
+            if(currentCount == 1){
+                currRowMap.remove(symbol);
+                if(currRowMap.isEmpty()) {
+                    rowMap.remove(row);
+                }
+            }
+            else{
+                currRowMap.put(symbol, currentCount - 1);
+            }
+        }
     }
 }

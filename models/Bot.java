@@ -45,6 +45,5 @@ public class Bot extends Player{
 
         // And the makeMove() for the BotPlayingStrategy decide where the bot will make its move
 
-
     }
 }

@@ -51,4 +51,38 @@ public class DiagonalWinningStrategy implements WinningStrategy{
 
         return false;
     }
+
+    @Override
+    public void handleUndo(Board board, Move move) {
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        Character symbol = move.getCell().getPlayer().getSymbol().getaChar();
+
+        //Left Diagonal(row == col)
+        if(row == col){
+            if(leftDiagonalMap.containsKey(symbol)){
+                int symbolCount = leftDiagonalMap.get(symbol);
+                if(symbolCount == 1){
+                    leftDiagonalMap.remove(symbol);
+                }
+                else{
+                    leftDiagonalMap.put(symbol,symbolCount - 1);
+                }
+            }
+        }
+
+//        Right Diagonal (row + col == N - 1)
+        if(row + col == board.getDimension() - 1){
+            if(rightDiagonalMap.containsKey(symbol)){
+                int symbolCount = rightDiagonalMap.get(symbol);
+                if(symbolCount == 1){
+                    rightDiagonalMap.remove(symbol);
+                }
+                else{
+                    rightDiagonalMap.put(symbol,symbolCount - 1);
+                }
+            }
+        }
+    }
 }

@@ -126,6 +126,7 @@ public class Game {
         Player currentPlayer = players.get(nextPlayerIndex);
 
         System.out.println("This is " + currentPlayer.getName() + "'s move.");
+        System.out.println();
 
 //        It is the Players responsibility to choose the move
             //1. Check which cells are currently empty so that the currentPlayer can make the move --> And based on the empty cell the player will choose the move
@@ -197,6 +198,42 @@ public class Game {
         }
         return false;
     }
+
+
+    public void undoMove(){
+        if(moves.isEmpty()){
+//            If this is the First move of the game
+            System.out.println("Please make a move first to do Undo!!");
+            return;
+        }
+        else{
+//            Else store the lastMove
+            Move lastMove = moves.get(moves.size()-1);
+//            Remove the last move from the moves list
+            moves.remove(moves.size()-1);
+
+//            Change the cell state of the last move to Empty
+            lastMove.getCell().setCellState(CellState.EMPTY);
+//            Remove the symbol from the last cell
+//            lastMove.getCell().setSymbol(null);
+
+            lastMove.getCell().setPlayer(null);
+
+//           The last player can again make his/her move
+            nextPlayerIndex--;
+
+//            Base case when nextPlayerIndex < 0 (becomes negative)
+//            Modular arithmetic to handle negative numbers - (a-b) % n ==> (a - b + n) % n
+            nextPlayerIndex = (nextPlayerIndex + players.size()) % players.size();
+
+//          After the UNDO operation we set the Game state to In Progress -> So in the last move if a player press undo he/she should not win after undoing the last move
+            setGameStatus(GameStatus.IN_PROCESS);
+            setWinner(null);
+        }
+    }
+
+
+
 
 
 

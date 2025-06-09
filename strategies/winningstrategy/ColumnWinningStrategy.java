@@ -6,6 +6,7 @@ import TicTacToeNew.models.Cell;
 import TicTacToeNew.models.Move;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class ColumnWinningStrategy implements WinningStrategy {
@@ -37,5 +38,27 @@ public class ColumnWinningStrategy implements WinningStrategy {
         }
 
         return false;
+    }
+
+    @Override
+    public void handleUndo(Board board, Move move) {
+        int col = move.getCell().getCol();
+        Character symbol = move.getCell().getPlayer().getSymbol().getaChar();
+
+        Map<Character,Integer> currColMap = colMap.get(col);
+
+        if(currColMap != null && currColMap.containsKey(symbol)){
+            int currentCount = currColMap.get(symbol);
+
+            if(currentCount == 1){
+                currColMap.remove(symbol);
+                if(currColMap.isEmpty()){
+                    colMap.remove(col);
+                }
+            }
+            else{
+                currColMap.put(symbol, currColMap.get(symbol) - 1);
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class Client {
     public static void main(String[] args) throws InvalidMoveException {
         System.out.println("GAME STARTS");
+        System.out.println();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -52,8 +53,15 @@ public class Client {
             //2. Make the decision where to put the next symbol --> makeMove()
             // if player is Human -> Ask for user input   Or  If the palyer is bot then user input is not needed
 
+//           First show the board
             gameController.printBoard(game);
 
+//            First Make the move
+            gameController.makeMove(game);
+
+            gameController.printBoard(game);
+
+            //Now after the first move or after evry move made we ask if we want to UNDO the last move
             //Do you Undo the last move
             System.out.println("Do You Want To UNDO? (y/n)");
 
@@ -62,11 +70,9 @@ public class Client {
             if(isUndo.equalsIgnoreCase("y")){
 //                Call the undo method from the gameController
                 gameController.Undo(game);
-                continue;
+                System.out.println("Undo is Successfull!!");
+//                gameController.printBoard(game);
             }
-
-//            Else make a move
-            gameController.makeMove(game);
         }
 
         gameController.printBoard(game);
